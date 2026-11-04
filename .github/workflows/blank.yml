@@ -8,7 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Unpack source archive
-        run: unzip -o "ArgusSwordMod_1.12.2_source (1).zip"
+        run: |
+          ls -la
+          f=$(find . -iname '*source*.zip' | head -n 1)
+          echo "Found archive: $f"
+          if [ -n "$f" ]; then unzip -o "$f"; fi
+          ls -la
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
